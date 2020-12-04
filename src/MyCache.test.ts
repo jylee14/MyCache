@@ -96,8 +96,9 @@ describe('MyCache Tests', () => {
                 expect(getResult).toBe(true)
                 expect(val).toStrictEqual(complexObject)
 
-                const { success: removeResult } = cache.remove('object')
+                const { success: removeResult, val: removed} = cache.remove('object')
                 expect(removeResult).toBe(true)
+                expect(removed).toStrictEqual(complexObject)
             })
 
             test('Arrays', () => {
@@ -112,8 +113,9 @@ describe('MyCache Tests', () => {
                 expect(getResult).toBe(true)
                 expect(val).toStrictEqual(array)
 
-                const { success: removeResult } = cache.remove('array')
+                const { success: removeResult, val: removed } = cache.remove('array')
                 expect(removeResult).toBe(true)
+                expect(removed).toStrictEqual(array)
             })
 
             test('Set', () => {
@@ -128,8 +130,9 @@ describe('MyCache Tests', () => {
                 expect(getResult).toBe(true)
                 expect(val).toStrictEqual(set)
 
-                const { success: removeResult } = cache.remove('set')
+                const { success: removeResult, val: removed } = cache.remove('set')
                 expect(removeResult).toBe(true)
+                expect(removed).toStrictEqual(set)
             })
 
             test('Map', () => {
@@ -147,10 +150,9 @@ describe('MyCache Tests', () => {
                 expect(getResult).toBe(true)
                 expect(val).toStrictEqual(map)
 
-                const { success: removeResult } = cache.remove('map')
+                const { success: removeResult, val: removed } = cache.remove('map')
                 expect(removeResult).toBe(true)
-                const { success: getAfterRemove } = cache.get('map')
-                expect(getAfterRemove).toBe(false)
+                expect(removed).toStrictEqual(map)
             })
         })
     })

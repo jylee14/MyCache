@@ -1,8 +1,10 @@
 {
   "compilerOptions": {
-    "target": "es2020",
+    "target": "es6",
+    "lib": ["es6"],
     "strict": true,
     "allowJs": true,
+    "downlevelIteration": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,

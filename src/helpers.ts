@@ -1,14 +1,39 @@
+/**
+ * Used to maintain some data of objects to be stored in the cache
+ * 
+ * object: the object passed in to be stored in cache (number | string | boolean | array | object literal)
+ * type: used to reconstruct a complex object (set | map)
+ * keyvals: values that were stored inside (set | map)
+ */
+export interface ObjectData {
+    object: unknown;
+    type: string;
+    keyvals: unknown[];
+}
+
+/**
+ * Zip K-V pair of the map into an array of arrays.
+ * Only works on SIMPLE map types (simple obj -> simple obj)
+ * @param map Map to zip key-val of
+ */
 export function zip<K, V>(map: Map<K, V>): unknown[] {
     const zipped = []
-    for (const [k, v] of map) {
+    const keys = Array.from(map.keys())
+    for(const k of keys) {
+        const v = map.get(k)
         zipped.push([k, v])
     }
     return zipped
 }
 
+/**
+ * Returns the object type of the object.
+ * Used to specify whether the object is simple object, set, or map
+ * @param obj object the find type of
+ */
 export function getObjectType(obj: unknown): string {
     const type = typeof obj
-    if ("object" !== type) {
+    if ("object" !== type) { 
         return type
     }
 
@@ -21,14 +46,18 @@ export function getObjectType(obj: unknown): string {
     return type
 }
 
+/**
+ * Reconstruct the object from data available in obj
+ * @param obj - JSON-stringify'ed representation of the object that was stored into the cache
+ */
 export function reconstruct(obj: string): unknown {
-    const parsed = JSON.parse(obj)
+    const parsed: ObjectData = JSON.parse(obj)
     switch (parsed.type) {
         case "set":
             return new Set(parsed.keyvals)
         case "map": {
             const map = new Map()
-            for (const [k, v] of parsed.keyvals) {
+            for(const [k, v] of parsed.keyvals) {
                 map.set(k, v)
             }
             return map
