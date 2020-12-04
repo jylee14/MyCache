@@ -3,13 +3,16 @@
   "version": "1.0.0",
   "description": "Basic Caching system (Like REDIS/Memcachd).",
   "scripts": {
-    "lint": "eslint .",
+    "lint": "eslint './src/**/*.{ts,tsx}'",
+    "lint-fix": "eslint './src/**/*.{ts,tsx}' --fix",
     "test": "jest --verbose"
   },
   "author": "Jun Lee",
   "license": "ISC",
   "devDependencies": {
     "@types/jest": "^26.0.16",
+    "@typescript-eslint/eslint-plugin": "^4.9.0",
+    "@typescript-eslint/parser": "^4.9.0",
     "eslint": "^7.14.0",
     "jest": "^26.6.3",
     "ts-jest": "^26.4.4",
